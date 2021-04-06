@@ -1,0 +1,62 @@
+{% extends "layout.html" %}{% block content %}
+    <div class="jumbotron shadow shadow" style="background-color: #ffffff">
+        <div class="d-flex row" id="cards">
+            <div class="col-3 d-flex align-items-center">
+                <img
+                        src="static/logo.svg"
+                        style="border-radius: 20px; max-width: 100%; fill: #eeb257"
+                />
+            </div>
+            <div class="col-9">
+                <h3>
+                    Messenger and herald of the gods, <br/>
+                    Hermés is here to satisfy your news fix
+                </h3>
+                <p class="lead">
+                    Fatigued by Information Overload? You're not alone- 72.8% of all news
+                    followers find themselves overloaded to some extent. Hermés exists to
+                    take alleviate that pain.
+                </p>
+                <div class="alert alert-warning" style="max-width: fit-content">
+                    <h5 class="alert-heading">Trending Articles Below!</h5>
+                    <p class="mb-0">
+                        Additionally, search for what you're looking for using the search bar
+                        top-right
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-columns">
+        {% for i in range(0, articles|length) %}
+            <div class="card shadow shadow mr-4 mb-4">
+                <div class="card-header">
+                    <img
+                            height="200"
+                            src="{{ articles[i].img }}"
+                            style="width: 100%; height: 100%; object-fit: cover; overflow: hidden"
+                    />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ articles[i].title }}</h5>
+                    <p class="card-text lead" style="font-size: 0.85rem">
+                        {{ articles[i].desc }}
+                    </p>
+                    <form action="/article" method="post">
+                        <input name="img" type="hidden" value="{{ articles[i].img }}"/>
+                        <input name="title" type="hidden" value="{{ articles[i].title }}"/>
+                        <input name="link" type="hidden" value="{{ articles[i].url }}"/>
+                        <button class="btn btn-warning btn-md" type="submit">Learn More</button>
+                        <a
+                                class="btn btn-secondary btn-md"
+                                href="{{ articles[i].url }}"
+                                role="button"
+                                target="_blank"
+                        >{{ articles[i].pub }}</a
+                        >
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

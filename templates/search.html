@@ -1,0 +1,39 @@
+{% extends "layout.html" %}{% block content %}
+    <p class="lead">
+        <em>
+            <small>Showing search results for {{ query }} sorted by relevancy</small>
+        </em>
+    </p>
+    <div class="card-columns">
+        {% for i in range(0, articles|length) %}
+            <div class="card shadow shadow mr-4 mb-4">
+                <div class="card-header">
+                    <img
+                            height="200"
+                            src="{{ articles[i].img }}"
+                            style="width: 100%; height: 100%; object-fit: cover; overflow: hidden"
+                    />
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ articles[i].title }}</h5>
+                    <p class="card-text lead" style="font-size: 0.85rem">
+                        {{ articles[i].desc }}
+                    </p>
+                    <form action="/article" method="post">
+                        <input name="img" type="hidden" value="{{ articles[i].img }}"/>
+                        <input name="title" type="hidden" value="{{ articles[i].title }}"/>
+                        <input name="link" type="hidden" value="{{ articles[i].url }}"/>
+                        <button class="btn btn-warning btn-md" type="submit">Learn More</button>
+                        <a
+                                class="btn btn-secondary btn-md"
+                                href="{{ articles[i].url }}"
+                                role="button"
+                                target="_blank"
+                        >{{ articles[i].pub }}</a
+                        >
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

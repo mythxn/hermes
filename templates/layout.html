@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            name="viewport"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootswatch@4/dist/litera/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            rel="stylesheet"
+            w
+    />
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script src="https://cdn.zingchart.com/modules/zingchart-wordcloud.min.js?v2.9.3"></script>
+    <title>Hermès</title>
+</head>
+<body>
+<div class="container">
+    <nav class="row shadow my-5 navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="/">Hermès</a>
+        <button
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                class="navbar-toggler"
+                data-target="#navbarSupportedContent"
+                data-toggle="collapse"
+                type="button"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item disabled"><span class="text-muted"></span></li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="post">
+                <input
+                        aria-label="Search"
+                        class="form-control mr-sm-2"
+                        name="query"
+                        placeholder="Search"
+                        type="search"
+                />
+                <button
+                        class="btn btn-outline-warning my-2 my-sm-0 mr-2"
+                        formaction="/search"
+                        type="submit"
+                >
+                    Search
+                </button>
+                <button
+                        class="btn btn-outline-warning my-2 my-sm-0"
+                        formaction="/combine"
+                        type="submit"
+                >
+                    Combine
+                </button>
+            </form>
+        </div>
+    </nav>
+    {% block content %}{% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

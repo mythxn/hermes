@@ -1,0 +1,43 @@
+{% extends "layout.html" %}{% block content %}
+    <div class="row shadow p-5 mb-5">
+        <div class="col-7"><img src="/static/error.png" style="width: 100%"/></div>
+        <div class="col-5 d-flex align-items-center">
+            {% if error=="nocombine" %}
+                <div style="display: block">
+                    <h4>Oh no, we couldn't combine your articles for some reason</h4>
+                    <br/>
+                    <p class="lead">Please recheck your search query or try again later</p>
+                </div>
+            {% elif error=="nosearch" %}
+                <div style="display: block">
+                    <h4>Oops, looks like you forgot to mention the search query</h4>
+                    <br/>
+                    <p class="lead">
+                        Please enter your search term in the input field and try again
+                    </p>
+                </div>
+            {% else %}
+                <div style="display: block">
+                    <h4>Oops, I'm sorry but I couldn't summarise '{{ title }}'</h4>
+                    <hr class="my-4"/>
+                    <p class="lead">
+                        <a
+                                class="btn btn-warning btn-md"
+                                href="{{ link }}"
+                                role="button"
+                                target="_blank"
+                        >
+                            Click here
+                        </a>
+                        to open original article
+                    </p>
+                    <p class="lead">
+                        <a class="btn btn-danger btn-md" href="/" role="button"> Click here</a>
+                        to go back to the homepage
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script src="/article-functions.js"></script>
+{% endblock %}

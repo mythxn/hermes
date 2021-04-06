@@ -1,0 +1,128 @@
+{% extends "layout.html" %}{% block content %}
+    <div class="jumbotron shadow shadow" style="background-color: #ffffff">
+        <div class="d-flex row" id="cards">
+            <div class="col-4 d-flex align-items-center">
+                <img
+                        class="mb-3"
+                        height="200"
+                        src="{{ img }}"
+                        style="
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          overflow: hidden;
+          border-radius: 30px;
+        "
+                />
+            </div>
+            <div class="col-8">
+                <div class="alert alert-dismissible alert-danger">
+                    <button class="close" data-dismiss="alert" type="button">
+                        &times;
+                    </button>
+                    <strong>BETA Feature!</strong> Try searching with more specific terms
+                    for better results
+                </div>
+                <h4>{{ title.title() }}</h4>
+                <h4><small class="text-muted"> Top hits summarised </small></h4>
+                <h2>Keywords:</h2>
+                {% for i in range(0, keywords|length) %}
+                    <form action="/search" method="post" style="display: inline-block">
+                        <button
+                                class="btn btn-secondary mb-2 ml-1"
+                                name="query"
+                                type="submit"
+                                value="{{ keywords[i] }}"
+                        >
+                            {{ keywords[i] }}
+                        </button>
+                    </form>
+                {% endfor %}
+            </div>
+        </div>
+        <hr class="my-4"/>
+        <div class="ml-2" style="float: right; display: flex; justify-content: flex-end">
+            <i class="fas fa-volume-up mr-2" id="play"></i>
+            <i class="fas fa-copy mr-2" id="copy"></i>
+        </div>
+        <p id="summary">{{ summary }}</p>
+        <hr class="my-4"/>
+        <h2>Word Cloud:</h2>
+        <div id="myChart"></div>
+        <script>
+            var myConfig = {
+                type: "wordcloud",
+                options: {text: {{fulltext|tojson}}},
+            };
+            zingchart.render({
+                id: "myChart",
+                data: myConfig,
+                height: 400,
+                width: "100%",
+            });
+        </script>
+        <hr class="my-4"/>
+        <h2>Sources:</h2>
+        <div class="card-columns d-flex align-self-stretch">
+            <div class="container-fluid">
+                <div class="row">
+                    {% for i in range(0, sources|length) %}
+                        <div class="card shadow shadow mr-4 mb-4">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper">
+                                    <img
+                                            src="{{ sources[i].img }}"
+                                            style="width: 40vh; height: 100%; object-fit: cover"
+                                    />
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ sources[i].title }}</h5>
+                                    <p class="card-text lead" style="font-size: 0.85rem">
+                                        {{ sources[i].desc }}
+                                    </p>
+                                    <form action="/article" method="post">
+                                        <input name="img" type="hidden" value="{{ sources[i].img }}"/>
+                                        <input
+                                                name="title"
+                                                type="hidden"
+                                                value="{{ sources[i].title }}"
+                                        />
+                                        <input name="link" type="hidden" value="{{ sources[i].url }}"/>
+                                        <button class="btn btn-warning btn-md" type="submit">
+                                            Learn More
+                                        </button>
+                                        <a
+                                                class="btn btn-secondary btn-md"
+                                                href="{{ sources[i].url }}"
+                                                role="button"
+                                                target="_blank"
+                                        >{{ sources[i].pub }}</a
+                                        >
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/article-functions.js"></script>
+    <style>
+        #myChart {
+            height: 100%;
+            width: 100%;
+            min-height: 150px;
+        }
+
+        .fas:hover {
+            color: gray;
+            cursor: pointer;
+        }
+
+        .card-horizontal {
+            display: flex;
+            flex: 1 1 auto;
+        }
+    </style>
+{% endblock %}

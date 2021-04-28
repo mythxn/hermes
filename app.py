@@ -18,7 +18,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     print("[STATUS] grabbing top headlines")
-    top_headlines = news.get_top_headlines(country="us")
+    top_headlines = news.get_top_headlines(language='en')
     return render_template("index.html", articles=parser(top_headlines))
 
 
@@ -27,7 +27,7 @@ def home():
 def search():
     try:
         query = request.form["query"]
-        search_results = news.get_everything(q=query)
+        search_results = news.get_everything(q=query, language='en')
         print("[STATUS] searching for articles related to '" + query + "'")
         return render_template("search.html", articles=parser(search_results), query=query)
     except:
